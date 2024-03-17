@@ -1,0 +1,25 @@
+// Populate Assigned to based on Assignment Group 
+
+Advance Reference qualifier javascript: new TransportServiceUtils().filterGroup(current.u_assignment_group);
+
+//Script Include : 
+var TransportServiceUtils = Class.create();
+TransportServiceUtils.prototype = {
+    initialize: function() {},
+
+    filterGroup: function(assignment_group) {
+        gs.info("Chetan Group Name is : " + assignment_group);
+        var arr = [];
+        var gr = new GlideRecord('sys_user_grmember');
+        gr.addQuery('group', assignment_group);
+        gr.query();
+
+        while (gr.next()) {
+            arr.push(gr.user.toString());
+        }
+
+		return 'sys_idIN'+arr; 
+    },
+
+    type: 'TransportServiceUtils'
+};
